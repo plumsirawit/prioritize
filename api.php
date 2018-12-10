@@ -1,4 +1,5 @@
 <?php
+    include_once 'config.php';
     /*
     Method List:
     insert
@@ -23,7 +24,7 @@
         $response['error'] = 'Invalid POST request: no command' . print_r($_POST,true);
         die(json_encode($response));
     }
-    $conn = new mysqli('db', 'api', 'api_pass', 'prioritize');
+    $conn = new mysqli(MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB);
     if(mysqli_connect_error()){
         $response['error'] = mysqli_connect_error();
         die(json_encode($response));
