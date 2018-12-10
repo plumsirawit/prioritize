@@ -23,7 +23,7 @@
         $response['error'] = 'Invalid POST request: no command' . print_r($_POST,true);
         die(json_encode($response));
     }
-    $conn = new mysqli('localhost', 'api', 'api_pass', 'prioritize');
+    $conn = new mysqli('db', 'api', 'api_pass', 'prioritize');
     if(mysqli_connect_error()){
         $response['error'] = mysqli_connect_error();
         die(json_encode($response));
