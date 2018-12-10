@@ -18,3 +18,5 @@ before_script:
   - sudo service apache2 restart
 services:
   - mysql
+os: linux
+dist: xenial
