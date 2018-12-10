@@ -55,14 +55,11 @@
             text.innerHTML = ret['error'];
             M.Modal.getInstance(document.getElementById("modal-error")).open();
         }
-        console.log(ret);
     }
     var login = function(){
         M.Modal.getInstance(document.getElementById("modal-login")).close();
         var username = document.getElementById("login-username").value;
         var password = document.getElementById("login-password").value;
-        console.log(username);
-        console.log(password);
         call("api.php",{command: "authenticate", username: username, password: password});
     }
     var register = function(){
@@ -94,8 +91,6 @@
             M.Modal.getInstance(document.getElementById("modal-error")).open();
             return;
         }
-        console.log(username);
-        console.log(password);
         call("api.php",{command: "register", username: username, password: password});
     }
     </script>
