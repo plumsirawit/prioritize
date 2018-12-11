@@ -42,6 +42,7 @@
         if(ret.hasOwnProperty('status') && ret['status'] == 'OK'){
             if(ret['output'] == "Login Successful"){
                 window.location.replace("index.php");
+                return;
             }
             var text = document.getElementById("modal-error-header");
             text.innerHTML = "Success";
