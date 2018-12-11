@@ -78,7 +78,7 @@
                 var ctx = canvas.getContext('2d');
                 ctx.beginPath();
                 ctx.arc(rescaleX(this.x), rescaleY(this.y), this.r, this.startingAngle, this.endAngle);
-                ctx.fillStyle = this.fill;
+                ctx.fillStyle = "#"+this.fill;
                 ctx.linewidth = 1;
                 ctx.fill();
                 ctx.strokestyle = this.stroke;
@@ -154,7 +154,7 @@
                 }else{
                     for(var i = 0; i < res.length; i++){
                         if(i == focused.key) continue;
-                        if(res[i][0] != circles[i].id || res[i][1] != circles[i].x || res[i][2] != circles[i].y){
+                        if(res[i][0] != circles[i].id || res[i][1] != circles[i].x || res[i][2] != circles[i].y || res[i][3] != circles[i].fill){
                             eq = false;
                             break;
                         }
@@ -163,20 +163,23 @@
                 if(!eq){
                     circles = [];
                     for(var i = 0; i < res.length; i++){
-                        circles.push(new Circle(res[i][0],res[i][1],res[i][2],5,"red","black"));
+                        circles.push(new Circle(res[i][0],res[i][1],res[i][2],5,res[i][3],"black"));
                     }
                     redraw();
                 }
-            }else if(data["command"] == "move"){
-                isMouseDown = false;
-                focused.state = false;
-                focused.key = 0;
-            }else if(data["command"] == "get"){
-                document.getElementById('item-title').value = ret['title'];
-                document.getElementById('item-description').value = ret['descs'];
-                document.getElementById('item-title-label').classList.add('active');
-                document.getElementById('item-description-label').classList.add('active');
-                document.getElementById('item-color').jscolor.fromString('#'+ret['color']);
+            }else{
+                if(data["command"] == "move"){
+                    isMouseDown = false;
+                    focused.state = false;
+                    focused.key = 0;
+                }else if(data["command"] == "get"){
+                    document.getElementById('item-title').value = ret['title'];
+                    document.getElementById('item-description').value = ret['descs'];
+                    document.getElementById('item-title-label').classList.add('active');
+                    document.getElementById('item-description-label').classList.add('active');
+                    document.getElementById('item-color').jscolor.fromString('#'+ret['color']);
+                }
+                call("api.php",{command: "list"});
             }
         }
         call("api.php",{command: "list"});
@@ -245,7 +248,7 @@
                         <div class="row" id="colorpicker">
                             <div class="input-field col s12">
                                 <button id="item-color" class="btn-floating btn-large waves-effect waves-light jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'"></button>
-                                <label id="item-color-label" for="item-color">Color Picker</label>
+                                <label id="item-color-label" for="item-color" class="active">Color Picker</label>
                             </div>
                         </div>
                     </div>
@@ -278,7 +281,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <button id="insert-color" class="btn-floating btn-large waves-effect waves-light jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'"></button>
-                                <label id="item-color-label" for="item-color" class="active">Color Picker</label>
+                                <label id="insert-color-label" for="insert-color" class="active">Color Picker</label>
                             </div>
                         </div>
                     </div>

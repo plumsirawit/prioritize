@@ -178,13 +178,13 @@
             $response['error'] = 'Unauthorized Access';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("SELECT id, x, y FROM tasks WHERE user_id = ?")){
+        if($stmt = $conn->prepare("SELECT id, x, y, color FROM tasks WHERE user_id = ?")){
             $stmt->bind_param("i",$_SESSION['user_id']);
             $stmt->execute();
-            $stmt->bind_result($id, $x, $y);
+            $stmt->bind_result($id, $x, $y, $color);
             $ret = array();
             while($stmt->fetch()){
-                $ret []= array($id, $x, $y);
+                $ret []= array($id, $x, $y, $color);
             }
             $stmt->close();
             $response['status'] = 'OK';
