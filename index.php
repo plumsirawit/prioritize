@@ -40,6 +40,9 @@
         });
         const ret = await response.json();
         if(ret.hasOwnProperty('status') && ret['status'] == 'OK'){
+            if(ret['output'] == "Login Successful"){
+                window.location.replace("index.php");
+            }
             var text = document.getElementById("modal-error-header");
             text.innerHTML = "Success";
             var text = document.getElementById("modal-error-text");
