@@ -8,6 +8,7 @@
     <link type="text/css" rel="stylesheet" href="board.css"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <script src="js/jscolor.js"></script>
     <script>
         var change = false;
         var mousePosition;
@@ -175,19 +176,22 @@
                 document.getElementById('item-description').value = ret['descs'];
                 document.getElementById('item-title-label').classList.add('active');
                 document.getElementById('item-description-label').classList.add('active');
+                document.getElementById('item-color').jscolor.fromString('#'+ret['color']);
             }
         }
         call("api.php",{command: "list"});
         var insert = function() {
             var title = document.getElementById("insert-title").value;
             var descs = document.getElementById("insert-description").value;
-            call("api.php",{command: "insert", title: title, descs: descs});
+            var color = document.getElementById("insert-color").innerHTML;
+            call("api.php",{command: "insert", title: title, descs: descs, color: color});
             document.getElementById("insert-title").value = "";
             document.getElementById("insert-title").classList.remove("valid");
             document.getElementById("insert-description").value = "";
             document.getElementById("insert-description").classList.remove("valid");
             document.getElementById("insert-title-label").classList.remove("active");
             document.getElementById("insert-description-label").classList.remove("active");
+            document.getElementById("insert-color").jscolor.fromString("FFFFFF");
             var instance = M.Modal.getInstance(document.getElementById("modal-insert"));
             instance.close();
         }
@@ -203,13 +207,15 @@
         var edit = function() {
             var title = document.getElementById("item-title").value;
             var descs = document.getElementById("item-description").value;
-            call("api.php",{command: "edit", title: title, descs: descs, id: current_id});
+            var color = document.getElementById("item-color").innerHTML;
+            call("api.php",{command: "edit", title: title, descs: descs, color: color, id: current_id});
             document.getElementById("item-title").value = "";
             document.getElementById("item-title").classList.remove("valid");
             document.getElementById("item-description").value = "";
             document.getElementById("item-description").classList.remove("valid");
             document.getElementById("item-title-label").classList.remove("active");
             document.getElementById("item-description-label").classList.remove("active");
+            document.getElementById("item-color").jscolor.fromString("FFFFFF");
             var instance = M.Modal.getInstance(document.getElementById("modal-item"));
             instance.close();
             current_id = 0;
@@ -234,6 +240,12 @@
                             <div class="input-field col s12">
                                 <textarea id="item-description" type="text" class="materialize-textarea validate"></textarea>
                                 <label id="item-description-label" for="item-description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row" id="colorpicker">
+                            <div class="input-field col s12">
+                                <button id="item-color" class="btn-floating btn-large waves-effect waves-light jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'"></button>
+                                <label id="item-color-label" for="item-color">Color Picker</label>
                             </div>
                         </div>
                     </div>
@@ -261,6 +273,12 @@
                             <div class="input-field col s12">
                                 <textarea id="insert-description" type="text" class="materialize-textarea validate"></textarea>
                                 <label id="insert-description-label" for="insert-description">Description</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button id="insert-color" class="btn-floating btn-large waves-effect waves-light jscolor {valueElement:'chosen-value', onFineChange:'setTextColor(this)'"></button>
+                                <label id="item-color-label" for="item-color" class="active">Color Picker</label>
                             </div>
                         </div>
                     </div>

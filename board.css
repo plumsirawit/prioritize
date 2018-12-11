@@ -11,3 +11,5 @@ canvas {
     background-color: transparent;
     z-index: 0;
 }
+
+.modal { max-height: 100%; overflow: visible}

@@ -42,6 +42,10 @@
             $response['error'] = 'Invalid POST request: no descs';
             die(json_encode($response));
         }
+        if(!isset($_POST['color'])){
+            $response['error'] = 'Invalid POST request: no color';
+            die(json_encode($response));
+        }
         if($stmt = $conn->prepare("SELECT id FROM tasks WHERE title = ? AND user_id = ?")){
             $stmt->bind_param("sd",$_POST['title'],$_SESSION['user_id']);
             $stmt->execute();
@@ -51,8 +55,8 @@
                 die(json_encode($response));
             }
             $stmt->close();
-            if($stmt = $conn->prepare("INSERT INTO tasks (user_id,title,descs) VALUES (?,?,?)")){
-                $stmt->bind_param("iss",$_SESSION['user_id'],$_POST['title'],$_POST['descs']);
+            if($stmt = $conn->prepare("INSERT INTO tasks (user_id,title,descs,color) VALUES (?,?,?,?)")){
+                $stmt->bind_param("isss",$_SESSION['user_id'],$_POST['title'],$_POST['descs'],$_POST['color']);
                 $stmt->execute();
                 if($stmt->affected_rows){
                     $response['status'] = 'OK';
@@ -117,14 +121,15 @@
             $response['error'] = 'Invalid POST request: no id';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("SELECT title, descs FROM tasks WHERE id = ? AND user_id = ?")){
+        if($stmt = $conn->prepare("SELECT title, descs, color FROM tasks WHERE id = ? AND user_id = ?")){
             $stmt->bind_param("ii",$_POST['id'],$_SESSION['user_id']);
             $stmt->execute();
-            $stmt->bind_result($title, $descs);
+            $stmt->bind_result($title, $descs, $color);
             if($stmt->fetch()){
                 $response['status'] = 'OK';
                 $response['title'] = $title;
                 $response['descs'] = $descs;
+                $response['color'] = $color;
                 $stmt->close();
                 $response['output'] = 'Successfully received data';
                 die(json_encode($response));
@@ -149,12 +154,16 @@
             $response['error'] = 'Invalid POST request: no descs';
             die(json_encode($response));
         }
+        if(!isset($_POST['color'])){
+            $response['error'] = 'Invalid POST request: no color';
+            die(json_encode($response));
+        }
         if(!isset($_POST['id'])){
             $response['error'] = 'Invalid POST request: no id';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("UPDATE tasks SET title = ?, descs = ? WHERE id = ? AND user_id = ?")){
-            $stmt->bind_param("ssii",$_POST['title'],$_POST['descs'],$_POST['id'],$_SESSION['user_id']);
+        if($stmt = $conn->prepare("UPDATE tasks SET title = ?, descs = ?, color = ? WHERE id = ? AND user_id = ?")){
+            $stmt->bind_param("sssii",$_POST['title'],$_POST['descs'],$_POST['color'],$_POST['id'],$_SESSION['user_id']);
             $stmt->execute();
             $stmt->close();
             $response['status'] = 'OK';
