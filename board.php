@@ -85,6 +85,7 @@
                 ctx.strokestyle = this.stroke;
                 ctx.stroke();
                 ctx.beginPath();
+                ctx.fillStyle = "black";
                 ctx.font = "15px monospace";
                 ctx.textAlign = "center";
                 ctx.fillText(this.title,rescaleX(this.x),rescaleY(this.y)-10);
