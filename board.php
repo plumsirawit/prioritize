@@ -64,7 +64,7 @@
             }
             moved = false;
         });
-        function Circle(id,x,y,r,fill,stroke) {
+        function Circle(id,x,y,r,fill,stroke,title) {
             this.startingAngle = 0;
             this.endAngle = 2 * Math.PI;
             this.x = x;
@@ -73,6 +73,7 @@
             this.id = id;
             this.fill = fill;
             this.stroke = stroke;
+            this.title = title;
             this.draw = function(){
                 var canvas = document.getElementById('board');
                 var ctx = canvas.getContext('2d');
@@ -83,6 +84,10 @@
                 ctx.fill();
                 ctx.strokestyle = this.stroke;
                 ctx.stroke();
+                ctx.beginPath();
+                ctx.font = "15px monospace";
+                ctx.textAlign = "center";
+                ctx.fillText(this.title,rescaleX(this.x),rescaleY(this.y)-10);
             }
         }
         function drawCircles() {
@@ -154,7 +159,7 @@
                 }else{
                     for(var i = 0; i < res.length; i++){
                         if(i == focused.key) continue;
-                        if(res[i][0] != circles[i].id || res[i][1] != circles[i].x || res[i][2] != circles[i].y || res[i][3] != circles[i].fill){
+                        if(res[i][0] != circles[i].id || res[i][1] != circles[i].x || res[i][2] != circles[i].y || res[i][3] != circles[i].fill || res[i][4] != circles[i].title){
                             eq = false;
                             break;
                         }
@@ -163,7 +168,7 @@
                 if(!eq){
                     circles = [];
                     for(var i = 0; i < res.length; i++){
-                        circles.push(new Circle(res[i][0],res[i][1],res[i][2],5,res[i][3],"black"));
+                        circles.push(new Circle(res[i][0],res[i][1],res[i][2],5,res[i][3],"black",res[i][4]));
                     }
                     redraw();
                 }
