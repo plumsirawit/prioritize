@@ -120,10 +120,8 @@
         }
         var request = function(cmd) {
             if(cmd == "insert"){
+                M.textareaAutoResize(document.getElementById("insert-description"));
                 var instance = M.Modal.getInstance(document.getElementById("modal-insert"));
-                instance.open();
-            }else if(cmd == "remove"){
-                var instance = M.Modal.getInstance(document.getElementById("modal-remove"));
                 instance.open();
             }
         }
@@ -184,6 +182,7 @@
                     document.getElementById('item-title-label').classList.add('active');
                     document.getElementById('item-description-label').classList.add('active');
                     document.getElementById('item-color').jscolor.fromString('#'+ret['color']);
+                    M.textareaAutoResize(document.getElementById("item-description"));
                 }
                 call("api.php",{command: "list"});
             }
@@ -224,6 +223,7 @@
             document.getElementById("item-color").jscolor.fromString("FFFFFF");
             var instance = M.Modal.getInstance(document.getElementById("modal-item"));
             instance.close();
+            
             current_id = 0;
         }
     </script>
