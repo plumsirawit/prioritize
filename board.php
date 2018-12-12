@@ -23,6 +23,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems, {});
+            var elems = document.querySelectorAll('.fixed-action-btn');
+            var instances = M.FloatingActionButton.init(elems, {});
         });
         document.addEventListener('mousemove', function(e) {
             if(!isMouseDown) {
@@ -297,6 +299,7 @@
             </div>
         </form>
     </div>
+    <!--
     <nav class="deep-orange">
         <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
@@ -308,6 +311,12 @@
             </ul>
         </div>
     </nav>
+    -->
+    <div class="fixed-action-btn">
+        <button class="btn-floating btn-large deep-orange waves-effect waves-light" onclick="request(&quot;insert&quot;)">
+            <i class="large material-icons">add</i>
+        </button>
+    </div>
     <canvas id="board"></canvas>
     <script>
     var fitToContainer = function(canvas) {
