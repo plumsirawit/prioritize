@@ -205,12 +205,9 @@
             instance.close();
         }
         var remove = function() {
-            var title = document.getElementById("remove-title").value;
+            var title = document.getElementById("item-title").value;
             call("api.php",{command: "remove", title: title});
-            document.getElementById("remove-title").value = "";
-            document.getElementById("remove-title").classList.remove("valid");
-            document.getElementById("remove-title-label").classList.remove("active");
-            var instance = M.Modal.getInstance(document.getElementById("modal-remove"));
+            var instance = M.Modal.getInstance(document.getElementById("modal-item"));
             instance.close();
         }
         var edit = function() {
@@ -262,7 +259,8 @@
             </div>
             <div class="modal-footer">
                 <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
-                <a class="waves-effect waves-green btn-flat" onclick="edit()">Edit</a>
+                <a class="waves-effect waves-orange btn-flat" onclick="remove()">Remove</a>
+                <a class="waves-effect waves-green btn-flat" onclick="edit()">Save</a>
             </div>
         </form>
     </div>
@@ -299,32 +297,10 @@
             </div>
         </form>
     </div>
-    <div id="modal-remove" class="modal">
-        <form>
-            <div class="modal-content">
-                <h4>Remove Task</h4>
-                <div class="row">
-                    <div class="col s12">
-                        <div class="row modal-form-row">
-                            <div class="input-field col s12">
-                                <input id="remove-title" type="text" class="validate">
-                                <label id="remove-title-label" for="remove-title">Task Title</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
-                <a class="waves-effect waves-green btn-flat" onclick="remove()">Submit</a>
-            </div>
-        </form>
-    </div>
     <nav class="deep-orange">
         <div class="nav-wrapper">
             <ul class="left hide-on-med-and-down">
                 <li><a onclick="request(&quot;insert&quot;)">Insert Task</a></li>
-                <li><a onclick="request(&quot;remove&quot;)">Remove Task</a></li>
             </ul>
             <a class="brand-logo center">Prioritize</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
