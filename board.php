@@ -299,23 +299,14 @@
             </div>
         </form>
     </div>
-    <!--
-    <nav class="deep-orange">
-        <div class="nav-wrapper">
-            <ul class="left hide-on-med-and-down">
-                <li><a onclick="request(&quot;insert&quot;)">Insert Task</a></li>
-            </ul>
-            <a class="brand-logo center">Prioritize</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="logout.php">Logout</a></li>
-            </ul>
-        </div>
-    </nav>
-    -->
     <div class="fixed-action-btn">
-        <button class="btn-floating btn-large deep-orange waves-effect waves-light" onclick="request(&quot;insert&quot;)">
-            <i class="large material-icons">add</i>
-        </button>
+        <a class="btn-floating btn-large deep-orange">
+            <i class="large material-icons">dehaze</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating green" onclick="request(&quot;insert&quot;)"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating blue" href="logout.php"><i class="material-icons">exit_to_app</i></a></li>
+        </ul>
     </div>
     <canvas id="board"></canvas>
     <script>
