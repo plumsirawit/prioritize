@@ -170,7 +170,7 @@
             $response['output'] = 'Data have been edited';
             die(json_encode($response));
         }else{
-            $response['errror'] = 'Cannot prepare MySQL statement (Edit)';
+            $response['error'] = 'Cannot prepare MySQL statement (Edit)';
             die(json_encode($response));
         }
     }else if($_POST['command'] == 'list'){
