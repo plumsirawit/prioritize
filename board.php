@@ -32,6 +32,9 @@
             var instances = M.Modal.init(elems, {});
             var elems = document.querySelectorAll('.fixed-action-btn');
             var instances = M.FloatingActionButton.init(elems, {});
+            var elems = document.querySelectorAll('.tap-target');
+            var instances = M.TapTarget.init(elems, {});
+            call("api.php",{command: 'old'});
         });
         document.addEventListener('mousemove', function(e) {
             if(!isMouseDown) {
@@ -207,6 +210,9 @@
                     }
                     redraw();
                 }
+            }else if(data["command"] == "old"){
+                var instance = M.TapTarget.getInstance(document.getElementById("fdtext"))
+                instance.open();
             }else{
                 if(data["command"] == "move"){
                     isMouseDown = false;
@@ -366,7 +372,7 @@
             </div>
         </form>
     </div>
-    <div class="fixed-action-btn">
+    <div id="fab" class="fixed-action-btn">
         <a class="btn-floating btn-large blue-grey darken-4">
             <i class="large material-icons">menu</i>
         </a>
@@ -375,6 +381,12 @@
             <li><a class="btn-floating blue-grey darken-2" onclick="request(&quot;insert&quot;)"><i class="material-icons">add</i></a></li>
             <li><a class="btn-floating blue-grey darken-3" href="logout.php"><i class="material-icons">exit_to_app</i></a></li>
         </ul>
+    </div>
+    <div id="fdtext" class="tap-target" data-target="fab">
+        <div class="tap-target-content">
+            <h5>Title</h5>
+            <p>A bunct of text</p>
+        </div>
     </div>
     <canvas id="board"></canvas>
     <script>

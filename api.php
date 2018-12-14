@@ -310,6 +310,34 @@
             $response['error'] = 'Cannot prepare MySQL statement (Check Register Duplication)';
             die(json_encode($response));
         }
+    }else if($_POST['command'] == 'old'){
+        if(!isset($_SESSION['user_id'])){
+            $response['error'] = 'Unauthorized Access';
+            die(json_encode($response));
+        }
+        if($stmt = $conn->prepare("SELECT old_user FROM users WHERE id = ?")){
+            $stmt->bind_param("i",$_SESSION['user_id']);
+            $stmt->execute();
+            $stmt->bind_result($res);
+            $response['status'] = 'OK'; 
+            if(!$res){
+                $response['output'] = 'false';
+            }else{
+                $response['output'] = 'true';
+            }
+            $stmt->close();
+            if($stmt = $conn->prepare("UPDATE users SET old_user = 1 WHERE id = ?")){
+                $stmt->bind_param("i",$_SESSION['user_id']);
+                $stmt->execute();
+            }else{
+                $response = array();
+                $response['error'] = 'Cannot prepare MySQL statement (Old user toggle)';
+            }
+            die(json_encode($response));
+        }else{
+            $response['error'] = 'Cannot prepare MySQL statement (Old user check)';
+            die(json_encode($response));
+        }
     }else{
         $response['error'] = 'Invalid Command: \"'. $_POST['command'] . '\" not found.';
         die(json_encode($response));

@@ -17,7 +17,8 @@ CREATE TABLE `tasks` (
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `password_hash` text COLLATE utf8_unicode_ci NOT NULL
+  `password_hash` text COLLATE utf8_unicode_ci NOT NULL,
+  `old_user` BOOLEAN NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 ALTER TABLE `tasks`
