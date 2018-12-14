@@ -121,7 +121,7 @@
             $response['error'] = 'Invalid POST request: no id';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("SELECT title, descs, color FROM tasks WHERE id = ? AND user_id = ?")){
+        if($stmt = $conn->prepare("SELECT title, descs, color FROM tasks WHERE id = ? AND user_id = ? AND completed = FALSE")){
             $stmt->bind_param("ii",$_POST['id'],$_SESSION['user_id']);
             $stmt->execute();
             $stmt->bind_result($title, $descs, $color);
@@ -162,8 +162,8 @@
             $response['error'] = 'Invalid POST request: no id';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("UPDATE tasks SET title = ?, descs = ?, color = ? WHERE id = ? AND user_id = ?")){
-            $stmt->bind_param("sssii",$_POST['title'],$_POST['descs'],$_POST['color'],$_POST['id'],$_SESSION['user_id']);
+        if($stmt = $conn->prepare("UPDATE tasks SET title = ?, descs = ?, color = ?, completed = ? WHERE id = ? AND user_id = ?")){
+            $stmt->bind_param("sssiii",$_POST['title'],$_POST['descs'],$_POST['color'],$_POST['completed'],$_POST['id'],$_SESSION['user_id']);
             $stmt->execute();
             $stmt->close();
             $response['status'] = 'OK';
@@ -178,7 +178,7 @@
             $response['error'] = 'Unauthorized Access';
             die(json_encode($response));
         }
-        if($stmt = $conn->prepare("SELECT id, x, y, color, title FROM tasks WHERE user_id = ?")){
+        if($stmt = $conn->prepare("SELECT id, x, y, color, title FROM tasks WHERE user_id = ? AND completed = FALSE")){
             $stmt->bind_param("i",$_SESSION['user_id']);
             $stmt->execute();
             $stmt->bind_result($id, $x, $y, $color, $title);

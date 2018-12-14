@@ -222,7 +222,7 @@
             var title = document.getElementById("item-title").value;
             var descs = document.getElementById("item-description").value;
             var color = document.getElementById("item-color").innerHTML;
-            call("api.php",{command: "edit", title: title, descs: descs, color: color, id: current_id});
+            call("api.php",{command: "edit", title: title, descs: descs, color: color, id: current_id, completed: 0});
             document.getElementById("item-title").value = "";
             document.getElementById("item-title").classList.remove("valid");
             document.getElementById("item-description").value = "";
@@ -232,7 +232,22 @@
             document.getElementById("item-color").jscolor.fromString("FFFFFF");
             var instance = M.Modal.getInstance(document.getElementById("modal-item"));
             instance.close();
-            
+            current_id = 0;
+        }
+        var complete = function() {
+            var title = document.getElementById("item-title").value;
+            var descs = document.getElementById("item-description").value;
+            var color = document.getElementById("item-color").innerHTML;
+            call("api.php",{command: "edit", title: title, descs: descs, color: color, id: current_id, completed: 1});
+            document.getElementById("item-title").value = "";
+            document.getElementById("item-title").classList.remove("valid");
+            document.getElementById("item-description").value = "";
+            document.getElementById("item-description").classList.remove("valid");
+            document.getElementById("item-title-label").classList.remove("active");
+            document.getElementById("item-description-label").classList.remove("active");
+            document.getElementById("item-color").jscolor.fromString("FFFFFF");
+            var instance = M.Modal.getInstance(document.getElementById("modal-item"));
+            instance.close();
             current_id = 0;
         }
     </script>
@@ -268,6 +283,7 @@
             </div>
             <div class="modal-footer">
                 <a class="modal-close waves-effect waves-red btn-flat">Cancel</a>
+                <a class="waves-effect waves-yellow btn-flat" onclick="complete()">Mark As Completed</a>
                 <a class="waves-effect waves-orange btn-flat" onclick="remove()">Remove</a>
                 <a class="waves-effect waves-green btn-flat" onclick="edit()">Save</a>
             </div>
@@ -308,7 +324,7 @@
     </div>
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large deep-orange">
-            <i class="large material-icons">dehaze</i>
+            <i class="large material-icons">menu</i>
         </a>
         <ul>
             <li><a class="btn-floating blue-grey darken-2" href="stats.php"><i class="material-icons">insert_chart</i></a></li>
