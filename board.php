@@ -159,6 +159,33 @@
                 }
             });
             const ret = await response.json();
+            if(ret.hasOwnProperty("error")){
+                if(data["command"] == "edit"){
+                    document.getElementById("item-title").value = "";
+                    document.getElementById("item-title").classList.remove("valid");
+                    document.getElementById("item-description").value = "";
+                    document.getElementById("item-description").classList.remove("valid");
+                    document.getElementById("item-title-label").classList.remove("active");
+                    document.getElementById("item-description-label").classList.remove("active");
+                    document.getElementById("item-color").jscolor.fromString("FFFFFF");
+                    var instance = M.Modal.getInstance(document.getElementById("modal-item"));
+                    instance.close();
+                    current_id = 0;
+                }else if(data["command"] == "insert"){
+                    document.getElementById("insert-title").value = "";
+                    document.getElementById("insert-title").classList.remove("valid");
+                    document.getElementById("insert-description").value = "";
+                    document.getElementById("insert-description").classList.remove("valid");
+                    document.getElementById("insert-title-label").classList.remove("active");
+                    document.getElementById("insert-description-label").classList.remove("active");
+                    document.getElementById("insert-color").jscolor.fromString("FFFFFF");
+                    var instance = M.Modal.getInstance(document.getElementById("modal-insert"));
+                    instance.close();
+                }
+                document.getElementById("error-description").innerHTML = ret["error"];
+                M.Modal.getInstance(document.getElementById("modal-error")).open();
+                return;
+            }
             if(data["command"] == "list"){
                 var res = JSON.parse(ret.output);
                 var eq = true;
@@ -215,8 +242,16 @@
         var remove = function() {
             var title = document.getElementById("item-title").value;
             call("api.php",{command: "remove", title: title});
+            document.getElementById("item-title").value = "";
+            document.getElementById("item-title").classList.remove("valid");
+            document.getElementById("item-description").value = "";
+            document.getElementById("item-description").classList.remove("valid");
+            document.getElementById("item-title-label").classList.remove("active");
+            document.getElementById("item-description-label").classList.remove("active");
+            document.getElementById("item-color").jscolor.fromString("FFFFFF");
             var instance = M.Modal.getInstance(document.getElementById("modal-item"));
             instance.close();
+            current_id = 0;
         }
         var edit = function() {
             var title = document.getElementById("item-title").value;
@@ -254,6 +289,15 @@
 </head>
 
 <body onresize="redraw()">
+    <div id="modal-error" class="modal">
+        <div class="modal-content">
+            <h4>Error</h4>
+            <p id="error-description"></p>
+        </div>
+        <div class="modal-footer">
+            <a class="modal-close waves-effect btn-flat">OK</a>
+        </div>
+    </div>
     <div id="modal-item" class="modal">
         <form>
             <div class="modal-content">
