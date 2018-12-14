@@ -323,13 +323,13 @@
         </form>
     </div>
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large deep-orange">
+        <a class="btn-floating btn-large blue-grey darken-4">
             <i class="large material-icons">menu</i>
         </a>
         <ul>
-            <li><a class="btn-floating blue-grey darken-2" href="stats.php"><i class="material-icons">insert_chart</i></a></li>
-            <li><a class="btn-floating blue-grey darken-3" onclick="request(&quot;insert&quot;)"><i class="material-icons">add</i></a></li>
-            <li><a class="btn-floating blue-grey darken-4" href="logout.php"><i class="material-icons">exit_to_app</i></a></li>
+            <li><a class="btn-floating blue-grey darken-1" href="stats.php"><i class="material-icons">insert_chart</i></a></li>
+            <li><a class="btn-floating blue-grey darken-2" onclick="request(&quot;insert&quot;)"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating blue-grey darken-3" href="logout.php"><i class="material-icons">exit_to_app</i></a></li>
         </ul>
     </div>
     <canvas id="board"></canvas>
