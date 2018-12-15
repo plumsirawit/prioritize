@@ -220,14 +220,9 @@
                 if($stmt = $conn->prepare("UPDATE tasks SET x = ?, y = ? WHERE id = ?")){
                     $stmt->bind_param("ddi", $_POST['x'], $_POST['y'], $_POST['id']);
                     $stmt->execute();
-                    if($stmt->affected_rows){
-                        $response['status'] = 'OK';
-                        $response['output'] = 'Query completed: ' . $stmt->affected_rows . ' rows affected';
-                        die(json_encode($response));
-                    }else{
-                        $response['error'] = 'Cannot update (Move)';
-                        die(json_encode($response));
-                    }
+                    $response['status'] = 'OK';
+                    $response['output'] = 'Query completed: ' . $stmt->affected_rows . ' rows affected';
+                    die(json_encode($response));
                 }else{
                     $response['error'] = 'Cannot prepare MySQL statement (Move)';
                     die(json_encode($response));
