@@ -211,8 +211,10 @@
                     redraw();
                 }
             }else if(data["command"] == "old"){
-                var instance = M.TapTarget.getInstance(document.getElementById("fdtext"))
-                instance.open();
+                if(ret.output == "false"){
+                    var instance = M.TapTarget.getInstance(document.getElementById("fdtext"));
+                    instance.open();
+                }
             }else{
                 if(data["command"] == "move"){
                     isMouseDown = false;
@@ -372,8 +374,8 @@
             </div>
         </form>
     </div>
-    <div id="fab" class="fixed-action-btn">
-        <a class="btn-floating btn-large blue-grey darken-4">
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large blue-grey darken-4" id="fab">
             <i class="large material-icons">menu</i>
         </a>
         <ul>
@@ -382,10 +384,10 @@
             <li><a class="btn-floating blue-grey darken-3" href="logout.php"><i class="material-icons">exit_to_app</i></a></li>
         </ul>
     </div>
-    <div id="fdtext" class="tap-target" data-target="fab">
+    <div id="fdtext" class="tap-target teal accent-3" data-target="fab">
         <div class="tap-target-content">
-            <h5>Title</h5>
-            <p>A bunct of text</p>
+            <h5>Menu</h5>
+            <p>You can view your stats, insert a new task, or logout here.</p>
         </div>
     </div>
     <canvas id="board"></canvas>

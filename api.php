@@ -319,11 +319,15 @@
             $stmt->bind_param("i",$_SESSION['user_id']);
             $stmt->execute();
             $stmt->bind_result($res);
+            if(!$stmt->fetch()){
+                $response['error'] = 'Cannot Fetch, Maybe user not found (Old)';
+                die(json_response($response));
+            }
             $response['status'] = 'OK'; 
-            if(!$res){
-                $response['output'] = 'false';
-            }else{
+            if($res == true){
                 $response['output'] = 'true';
+            }else{
+                $response['output'] = 'false';
             }
             $stmt->close();
             if($stmt = $conn->prepare("UPDATE users SET old_user = 1 WHERE id = ?")){
