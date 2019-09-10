@@ -39,9 +39,13 @@
         document.addEventListener('mousemove', function(e) {
             if(!isMouseDown) {
                 return;
-            }
-            moved = true;
-            getMousePosition(e);
+	    }
+	    var ox = mousePosition.x;
+	    var oy = mousePosition.y;
+	    getMousePosition(e);
+	    var nx = mousePosition.x;
+	    var ny = mousePosition.y;
+            if(nx != ox || ny != oy) moved = true;
             if(backscaleX(mousePosition.x) < 0 || backscaleX(mousePosition.x) > 100 || backscaleY(mousePosition.y) < 0 || backscaleY(mousePosition.y) > 100){
                 return;
             }

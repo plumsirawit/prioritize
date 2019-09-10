@@ -11,7 +11,7 @@ CREATE TABLE `tasks` (
   `x` double NOT NULL DEFAULT '50',
   `y` double NOT NULL DEFAULT '50',
   `color` varchar(16) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `completed` BOOLEAN NOT NULL DEFAULT 0,
+  `completed` BOOLEAN NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `users` (
